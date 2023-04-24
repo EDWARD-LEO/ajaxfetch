@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <!-- 
+    En este tercer ejemplo traemos archivos binarios (IMG), fetch permite interacturar con:
+     * text()   : Convertimos el dato devuelto a formato texto
+     * json()   : Convertimos el dato devuelto a formato JSON
+     * blob()   : Este método es utilizado para recuperar en forma asíncrona imágenes
+      significa, [B]inary [L]arge [Ob]jects (objetos binarios grandes)
+  -->
+
+  <form action="">
+    <button id="ram" type="button">Memoria RAM</button>
+    <button id="cpu" type="button">Microprocesador</button>
+    <button id="ssd" type="button">Unidad de estado sólido</button>
+    <hr>
+    <img src="" alt="" id="foto">
+  </form>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const btRAM = document.querySelector("#ram");
+      const btCPU = document.querySelector("#cpu");
+      const btSSD = document.querySelector("#ssd");
+      const foto = document.querySelector("#foto");
+
+      btRAM.addEventListener("click", () => {
+        getImagen(`ram.jpg`);
+      });
+
+      btCPU.addEventListener("click", () => {
+        getImagen(`microprocesador.jpg`);
+      });
+
+      btSSD.addEventListener("click", () => { 
+        getImagen(`ssd.jpg`); 
+      });
+
+      function getImagen(nombre){
+        fetch(`img/${nombre}`)
+          .then(response => response.blob())
+          .then(datos => {
+            foto.setAttribute("src", URL.createObjectURL(datos));
+          });
+      }
+    });
+  </script>
+
+</body>
+</html>

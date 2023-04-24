@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <!--
+    Utilizaremos el archivo "datos1.php" para consultar datos
+    el ejemplo tiene 3 niveles (comentado 2 de ellos) desde la
+    versión más simple a la más compleja.
+  -->
+
+  
+  <form action="">
+    <select name="lista" id="lista">
+      <option value="">No hay datos</option>
+    </select>
+    <button id="test" type="button">Test</button>
+  </form>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const btnTest = document.getElementById("test");
+      const lista = document.getElementById("lista");
+      /*
+      //Forma básica
+      btnTest.addEventListener("click", () => {
+        fetch("datos1.php")
+          .then(response => response.json())
+          .then(datos => console.log(datos));
+      });
+      */
+
+      /*
+      //Se envía cada elemento por separado
+      btnTest.addEventListener("click", () => {
+        fetch("datos1.php")
+          .then(response => response.json())
+          .then(datos => {
+            datos.forEach(element => {
+              console.log(element);
+            });
+          });
+      });
+      */
+
+      btnTest.addEventListener("click", () => {
+        fetch("datos1.php")
+          .then(response => response.json())
+          .then(datos => {
+            //Reiniciando la lista
+            lista.innerHTML = `<option value=''>Seleccione</option>`;
+
+            datos.forEach(element => {
+              const optionTag = document.createElement('option');
+              optionTag.value = element.codigo;
+              optionTag.text = element.nombre;
+              lista.appendChild(optionTag);
+            });
+          });
+      });
+
+      //Evento para detectar elemento activo
+      lista.addEventListener("change", () => {
+        console.log(lista.value);
+      });
+
+    });
+  </script>
+
+</body>
+</html>

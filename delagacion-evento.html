@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <!--
+  La delegación de eventos es otra opción común para agregar eventos a elementos dinámicamente agregados. La delegación de eventos se refiere a agregar un manejador de eventos a un elemento "padre" en lugar de agregarlo a los elementos "hijos" individuales. De esta manera, el evento se propagará desde el elemento "hijo" hasta el elemento "padre", lo que significa que el manejador de eventos se ejecutará incluso si el elemento "hijo" se agrega después de que se haya cargado la página
+  -->
+
+  <button id="agregar" type="button">Agregar item</button>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+      const boton = document.querySelector("#agregar");
+
+      //Creamos una lista y la agregamos al BODY
+      const lista = document.createElement("ul");
+      lista.id = "miLista";
+      document.body.appendChild(lista);
+
+      //Agregamos un manejador de eventos "click" a la lista
+      document.querySelector("#miLista").addEventListener("click", function (event){
+        if (event.target.tagName.toLowerCase() === "li"){
+          console.log("Pulsaste clic en un item de la lista");
+        }
+      });
+
+      //Agregamos elementos de forma dinámica
+      const elemento1 = document.createElement("li");
+      elemento1.innerHTML = "Elemento 1";
+      lista.appendChild(elemento1);
+
+      const elemento2 = document.createElement("li");
+      elemento2.innerHTML = "Elemento 2";
+      lista.appendChild(elemento2);
+
+      boton.addEventListener("click", () => {
+        const elemento3 = document.createElement("li");
+        elemento3.innerHTML = "Elemento 3";
+        lista.appendChild(elemento3);
+      });
+
+    });
+  </script>
+  
+</body>
+</html>

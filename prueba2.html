@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <style>
+    table{
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    td, th{
+      border: 1px solid #DDD;
+      text-align: left;
+      padding: 8px;
+    }
+    tr:nth-child(even){
+      background-color: #DDD;
+    }
+  </style>
+  
+  <!-- 
+    En este ejemplo consumiremos un API público, para ello necesitamos saber:
+    1. La URL del API
+    2. La estructura del archivo JSON (atributos)
+  -->
+
+  <form action="">
+    <button type="button" id="obtener-datos">Obtener datos</button>
+  </form>
+
+  <hr>
+
+  <table id="tabla-usuarios">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>UserName</th>
+        <th>Email</th>
+        <th>WebSite</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Datos que se cargarán de forma asíncrona -->
+    </tbody>
+  </table>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const btObtener = document.querySelector("#obtener-datos");
+      const tablaUsuarios = document.querySelector("#tabla-usuarios");
+      const cuerpoTabla = tablaUsuarios.querySelector("tbody");
+
+      btObtener.addEventListener("click", () => {
+        cuerpoTabla.innerHTML = ``;
+        fetch("https://jsonplaceholder.typicode.com/users")
+          .then(response => response.json())
+          .then(datos => {
+            datos.forEach(element => {
+              let fila = `
+              <tr>
+              <td>${element['id']}</td>
+              <td>${element['name']}</td>
+              <td>${element['username']}</td>
+              <td>${element['email']}</td>
+              <td>${element['website']}</td>
+              </td>`;
+              cuerpoTabla.innerHTML += fila;
+            });
+          });
+      });
+
+    });
+  </script>
+
+</body>
+</html>
