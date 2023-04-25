@@ -24,8 +24,43 @@
   -->
 
   <div class="container">
-
+    <div class="mb-3">
+      <label for="componente" class="form-label">Componente</label>
+      <input type="text" id="componente" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="fotografia">Adjuntar imagen</label>
+      <input type="file" id="fotografia" class="form-control" accept=".jpg">
+    </div>
+    <div class="mb-3">
+      <button class="btn btn-success" id="enviar">Enviar datos</button>
+    </div>
   </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const enviar = document.querySelector("#enviar");
+      const componente = document.querySelector("#componente");
+      const fotografia = document.querySelector("#fotografia");
+
+      enviar.addEventListener("click", () => {
+        let fd = new FormData();
+        fd.append("operacion", "upload");
+        fd.append("fotografia", fotografia.files[0]);
+        fd.append("componente", componente.value);
+
+        fetch('componente.php', {
+          method: 'POST',
+          body: fd
+        })
+        .then(response => response.json())
+        .then(datos => {
+          console.log(datos);
+        })
+
+      });
+    });
+  </script>
 
 </body>
 </html>

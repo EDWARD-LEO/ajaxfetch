@@ -17,10 +17,12 @@ INSERT INTO productos (nombre, marca, precio) VALUES
 ALTER TABLE productos ADD CONSTRAINT uk_nombremarca UNIQUE (nombre, marca);
 SELECT * FROM productos;
 
-CREATE TABLE personas
+CREATE TABLE componentes
 (
-	idpersona 	INT AUTO_INCREMENT PRIMARY KEY,
-	apellidos	VARCHAR(40)	NOT NULL,	
-	nombres 	VARCHAR(40)	NOT NULL,
-	fotografia	VARCHAR(90) NOT NULL
+	idcomponente 	INT AUTO_INCREMENT PRIMARY KEY,
+	componente 		VARCHAR(50)	NOT NULL,
+	fotografia		VARCHAR(90) NOT NULL,
+	create_at 		DATETIME		NOT NULL DEFAULT NOW()
 )ENGINE = INNODB;
+
+SELECT * FROM componentes;
