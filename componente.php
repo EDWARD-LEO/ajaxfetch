@@ -21,7 +21,7 @@ if (isset($_POST['operacion'])){
     $nombreArchivo = '';
     if (isset($_FILES['fotografia'])){
       $rutaDestino = 'img/';
-      $nombreTMP = sha1(date('C')) . ".jpg";
+      $nombreTMP = sha1(date('c')) . ".jpg";
       $rutaDestino .= $nombreTMP;
 
       if (move_uploaded_file($_FILES['fotografia']['tmp_name'], $rutaDestino)){
@@ -30,9 +30,9 @@ if (isset($_POST['operacion'])){
     }
 
     $consulta = $conexion->prepare("INSERT INTO componentes (componente, fotografia) VALUES (?,?)");
-    $consulta->execute(array($_POST['componente'], $nombreArchivo));
+    $consulta->execute(array($_POST['componente'], $nombreTMP));
 
-    echo json_encode(["respuesta" => "OK"]);
+    echo json_encode(["respuesta" => "OK", "nombreTMP" => $nombreTMP]);
 
   }
 
