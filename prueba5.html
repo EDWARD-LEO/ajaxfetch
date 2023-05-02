@@ -23,6 +23,13 @@
   https://www.tutorialesprogramacionya.com/javascriptya/temarios/descripcion.php?inicio=110&cod=112
   -->
 
+  <style>
+    .previewImg{
+      max-width: 300px;
+      max-height: 250px;
+    }
+  </style>
+
   <div class="container">
     <div class="mb-3">
       <label for="componente" class="form-label">Componente</label>
@@ -32,6 +39,7 @@
       <label for="fotografia">Adjuntar imagen</label>
       <input type="file" id="fotografia" class="form-control" accept=".jpg">
     </div>
+    <img src="" id="preview" class="previewImg" alt="">
     <div class="mb-3">
       <button class="btn btn-success" id="enviar">Enviar datos</button>
     </div>
@@ -42,6 +50,7 @@
       const enviar = document.querySelector("#enviar");
       const componente = document.querySelector("#componente");
       const fotografia = document.querySelector("#fotografia");
+      const preview = document.querySelector("#preview");
 
       enviar.addEventListener("click", () => {
         let fd = new FormData();
@@ -57,8 +66,15 @@
         .then(datos => {
           console.log(datos);
         })
-
       });
+
+      fotografia.addEventListener("change", () => {
+        if (fotografia.files.length > 0){
+          const patchImg = URL.createObjectURL(fotografia.files[0]);
+          preview.src = patchImg;
+        }
+      });
+
     });
   </script>
 
