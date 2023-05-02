@@ -20,7 +20,7 @@ if (isset($_POST['operacion'])){
     
     $nombreArchivo = '';
     if (isset($_FILES['fotografia'])){
-      $rutaDestino = 'img/';
+      $rutaDestino = 'img/fotos-componentes/';
       $nombreTMP = sha1(date('c')) . ".jpg";
       $rutaDestino .= $nombreTMP;
 
